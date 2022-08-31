@@ -38,12 +38,25 @@ class App extends Component {
   }
 
   render(){
+    // Inline styling of elements
+    // Restriction is that you can't work on hover and some other pure CSS features
+    const style = {
+      backgroundColor: 'white',
+      font: "inherit",
+      border: "1px solid aquamarine",
+      padding: "8px",
+      borderRadius: "10px",
+      cursor: "pointer"
+    }
+
     return (
       // Also every tag you want to use would be nested in one div per component
       <div className="App">
         <h1>I am a react app, haha</h1>
         <p>this is really working.</p>
-        <button onClick={this.switchNameHandler.bind(this, "opem")}>Switch state</button>
+        <button
+          style={style}
+          onClick={this.switchNameHandler.bind(this, "opem")}>Switch state</button>
         <Person name = "suo" age = "11"> Human </Person>
         {/* benefits of using components like Person is reusability */}
         <Person

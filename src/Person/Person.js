@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import './Person.css'
+
 // The React imported is needed to convert our JSX to regular JavaScript
 
 // A component is just a function that returns some JSX
@@ -15,7 +17,7 @@ import React from 'react'
 const person = (props) => {
     // To write dynamic javascript in JSX we use {}
     return (
-        <div>
+        <div className='Person'>
             <p onClick={props.click}>I'm {props.name} and I'm {props.age} years old.</p>
             
             {/* You can also take the value inputed between the <person></person> tags with props.children property */}
