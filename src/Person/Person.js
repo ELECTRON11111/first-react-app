@@ -16,7 +16,7 @@ const person = (props) => {
     // To write dynamic javascript in JSX we use {}
     return (
         <div>
-            <p>I'm {props.name} and I'm {props.age} years old.</p>
+            <p onClick={props.click}>I'm {props.name} and I'm {props.age} years old.</p>
             
             {/* You can also take the value inputed between the <person></person> tags with props.children property */}
 
