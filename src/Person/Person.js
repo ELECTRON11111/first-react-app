@@ -21,6 +21,8 @@ const person = (props) => {
             {/* You can also take the value inputed between the <person></person> tags with props.children property */}
 
             <p>{props.children}</p>
+            {/* I set up two way binding here, it means I specifically set the value of an elem and make provision for changes */}
+            <input type = "text" onChange={props.changed} value = {props.name}/>
         </div>
     )
 
