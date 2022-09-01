@@ -14,7 +14,9 @@ class App extends Component {
         name: "idana",
         age: 22
       }
-    ]
+    ],
+    otherState: "some stuff",
+    showPersons: false
   };
 
   switchNameHandler = (newName) => {
@@ -37,6 +39,14 @@ class App extends Component {
     });
   }
 
+  togglePersonsHandler = () => {
+    // This decides to display the persons or not
+    const doesShow = this.state.showPersons? false : true; 
+    this.setState({
+      showPersons: doesShow
+    })
+  }
+
   render(){
     // Inline styling of elements
     // Restriction is that you can't work on hover and some other pure CSS features
@@ -54,31 +64,29 @@ class App extends Component {
       <div className="App">
         <h1>I am a react app, haha</h1>
         <p>this is really working.</p>
+        
         <button
           style={style}
-          onClick={this.switchNameHandler.bind(this, "opem")}>Switch state</button>
-        <Person name = "suo" age = "11"> Human </Person>
-        {/* benefits of using components like Person is reusability */}
-        <Person
-          name = {this.state.persons[0].name} 
-          age = {this.state.persons[0].age}
-          changed = {this.nameChangedHandler}
-        />
+          onClick={this.togglePersonsHandler}
+        >Toggle Persons</button>
 
-        {/* 
+        {/* How to display content conditionally, only teneraly operators work here as {} doesn't support block code */}
 
-          you know we don't call functions directly because it runs even without the event being triggered.
+        {this.state.showPersons ? 
+          <div>
 
-          so if we pass an anonymous function created, it won't run directly so we can the function with the argument inside the anonymous function.
+            <Person
+              name = {this.state.persons[0].name} 
+              age = {this.state.persons[0].age}
+              changed = {this.nameChangedHandler}
+            />
 
-          bind is a better option in terms of performance.
-
-        */}
-        <Person
-          click = {() => this.switchNameHandler("simi")} 
-          name={this.state.persons[1].name} 
-          age = {this.state.persons[1].age}
-        />
+            <Person
+              click = {() => this.switchNameHandler("simi")} 
+              name={this.state.persons[1].name} 
+              age = {this.state.persons[1].age}
+            />
+          </div> : null}        
       </div>
     )
   }
