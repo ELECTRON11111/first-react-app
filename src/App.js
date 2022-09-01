@@ -58,6 +58,30 @@ class App extends Component {
       borderRadius: "10px",
       cursor: "pointer"
     }
+    // remember : Everything in React is JavaScript
+    // So when the Render method is called what ever javascript we write here will run
+    //  So we use that for writing cleaner dynamic and conditional content
+
+    // set a default value
+    let persons = null;
+  
+    if (this.state.showPersons) {
+      persons =  (
+        <div>
+          <Person
+            name = {this.state.persons[0].name} 
+            age = {this.state.persons[0].age}
+            changed = {this.nameChangedHandler}
+          />
+
+          <Person
+            click = {() => this.switchNameHandler("simi")} 
+            name={this.state.persons[1].name} 
+            age = {this.state.persons[1].age}
+          />
+        </div>
+      )    
+    }
 
     return (
       // Also every tag you want to use would be nested in one div per component
@@ -69,24 +93,7 @@ class App extends Component {
           style={style}
           onClick={this.togglePersonsHandler}
         >Toggle Persons</button>
-
-        {/* How to display content conditionally, only teneraly operators work here as {} doesn't support block code */}
-
-        {this.state.showPersons ? 
-          <div>
-
-            <Person
-              name = {this.state.persons[0].name} 
-              age = {this.state.persons[0].age}
-              changed = {this.nameChangedHandler}
-            />
-
-            <Person
-              click = {() => this.switchNameHandler("simi")} 
-              name={this.state.persons[1].name} 
-              age = {this.state.persons[1].age}
-            />
-          </div> : null}        
+        {persons}
       </div>
     )
   }
