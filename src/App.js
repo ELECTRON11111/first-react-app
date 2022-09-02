@@ -8,34 +8,27 @@ class App extends Component {
     persons : [
       {
         name: "dan", 
-        age : 19
+        age : 19,
+        id: "hquwg712"
       },
       {
         name: "idana",
-        age: 22
+        age: 22,
+        id: "hdekqhii3i"
       }
     ],
     otherState: "some stuff",
     showPersons: false
   };
 
-  switchNameHandler = (newName) => {
-    console.log('worked!');
-    // Set state re-renders the DOM when there's an update to the state
+  nameChangedHandler = (e, id) => {
+    // console.log(e, id);
+    // Remember to always work with copies of the arrays/objects you use, ensuring state immutability
+    const persons = [...this.state.persons];
+    const Person = persons.find(person => person.id === id );
+    Person.name = e.target.value;
     this.setState({
-      persons: [
-        {name: newName, age: 20},
-        {name: "wurasimi", age: 21}
-      ]
-    });
-  }
-
-  nameChangedHandler = (e) => {
-    this.setState({
-      persons: [
-        {name: e.target.value, age: 20},
-        {name: "wurasimi", age: 21}
-      ]
+      persons: persons
     });
   }
 
@@ -45,6 +38,17 @@ class App extends Component {
     this.setState({
       showPersons: doesShow
     })
+  }
+
+  deletePersonHandler = (personIndex) => {
+    // With React, we should always ensure state immutability
+    // Meaning we shouldn't change state values without setting state instead we create a copy
+    // and make changes to the copy before updating the state with that copy 
+    const persons = [...this.state.persons];
+    // Delete one item from the person index
+    persons.splice(personIndex, 1);
+    // update the state
+    this.setState( {persons: persons} );
   }
 
   render(){
@@ -68,17 +72,19 @@ class App extends Component {
     if (this.state.showPersons) {
       persons =  (
         <div>
-          <Person
-            name = {this.state.persons[0].name} 
-            age = {this.state.persons[0].age}
-            changed = {this.nameChangedHandler}
-          />
-
-          <Person
-            click = {() => this.switchNameHandler("simi")} 
-            name={this.state.persons[1].name} 
-            age = {this.state.persons[1].age}
-          />
+          {/* The map method also gives access to the index of each elem in the array  */}
+          {/* Once we're listing components From an array, For efficiency sake, react needs a special identifier for each item it wants to render*/}
+          {/* It compares the DOM with a virtual DOM which shows DOM before re-rendering so for efficiecy sake */}
+          {/* It only rerenders where changes were made if its able to identify what changed, so we add a key .. so we add an id to each person and set it as the key */}
+          {this.state.persons.map((person, index) => {
+            return <Person 
+                      name = {person.name} 
+                      age = {person.age} 
+                      click = {() => this.deletePersonHandler(index)} 
+                      key = {person.id}
+                      changed = {(e) => this.nameChangedHandler(e, person.id)}
+                    />
+          })}
         </div>
       )    
     }
