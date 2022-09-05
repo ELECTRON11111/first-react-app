@@ -1,4 +1,5 @@
 import React from 'react';
+import Radium from 'radium';
 import './Person.css'
 
 // The React imported is needed to convert our JSX to regular JavaScript
@@ -15,6 +16,12 @@ import './Person.css'
 // Advantage the function expression has over function declaration is access to the 'this' keyword
 // A component can take 'props' basically attributes that are added to the component 
 const person = (props) => {
+    const style = {
+        '@media (min-width: 500px)': {
+            width: "450px"
+        }
+    }
+
     // To write dynamic javascript in JSX we use {}
     return (
         <div className='Person'>
@@ -33,4 +40,4 @@ const person = (props) => {
 /**
  * For components created with classes, the props are accessed using 'this.props'
  */
-export default person;
+export default Radium(person);

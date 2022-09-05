@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
+import Radium, {StyleRoot} from 'radium';
 import Person from './Person/Person';
 
 // One way to create a component
@@ -66,7 +67,11 @@ class App extends Component {
       border: "1px solid aquamarine",
       padding: "8px",
       borderRadius: "10px",
-      cursor: "pointer"
+      cursor: "pointer",
+      ":hover": {
+        backgroundColor: "lightgreen",
+        color: "black"
+      }
     }
     // remember : Everything in React is JavaScript
     // So when the Render method is called what ever javascript we write here will run
@@ -76,7 +81,6 @@ class App extends Component {
     let persons = null;
   
     if (this.state.showPersons) {
-      style.backgroundColor = "red";
       persons =  (
         <div>
           {/* The map method also gives access to the index of each elem in the array  */}
@@ -93,7 +97,13 @@ class App extends Component {
                     />
           })}
         </div>
-      )
+      );
+
+      style.backgroundColor = "red";
+      style[":hover"] = {
+        backgroundColor: "salmon",
+        color: "black"
+      }
       
     }
 
@@ -106,19 +116,21 @@ class App extends Component {
     }
 
     return (
-      // Also every tag you want to use would be nested in one div per component
-      <div className="App">
-        <h1>I am a react app, haha</h1>
-        <p className= {classes.join(' ')}>this is really working.</p>
-        
-        <button
-          style={style}
-          onClick={this.togglePersonsHandler}
-        >Toggle Persons</button>
-        {persons}
-      </div>
+      <StyleRoot>
+        {/* // Also every tag you want to use would be nested in one div per component */}
+        <div className="App">
+          <h1>I am a react app, haha</h1>
+          <p className= {classes.join(' ')}>this is really working.</p>
+          
+          <button
+            style={style}
+            onClick={this.togglePersonsHandler}
+          >Toggle Persons</button>
+          {persons}
+        </div>
+      </StyleRoot>
     )
   }
 };
 
-export default App;
+export default Radium(App);
