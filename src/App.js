@@ -1,8 +1,25 @@
 import React, {Component} from 'react';
 import './App.css';
-import Radium, {StyleRoot} from 'radium';
+import styled from 'styled-components';
 import Person from './Person/Person';
 
+// creating a styled button 
+// we can also add dynamic or conditional styles using ${} since styled componets use template literals
+const StyledButton = styled.button`
+  background-color: ${props => props.alt? "green": "red"};
+  color: White;
+  font: inherit;
+  border: 1px solid aquamarine;
+  padding: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${props => props.alt? "lightgreen": "salmon"};
+    color: black;
+  }
+  
+`;
 // One way to create a component
 class App extends Component {
   state = {
@@ -58,21 +75,6 @@ class App extends Component {
   }
 
   render(){
-    // Inline styling of elements
-    // Restriction is that you can't work on hover and some other pure CSS features
-    const style = {
-      backgroundColor: 'green',
-      color: 'White',
-      font: "inherit",
-      border: "1px solid aquamarine",
-      padding: "8px",
-      borderRadius: "10px",
-      cursor: "pointer",
-      ":hover": {
-        backgroundColor: "lightgreen",
-        color: "black"
-      }
-    }
     // remember : Everything in React is JavaScript
     // So when the Render method is called what ever javascript we write here will run
     //  So we use that for writing cleaner dynamic and conditional content
@@ -99,11 +101,11 @@ class App extends Component {
         </div>
       );
 
-      style.backgroundColor = "red";
-      style[":hover"] = {
-        backgroundColor: "salmon",
-        color: "black"
-      }
+      // style.backgroundColor = "red";
+      // style[":hover"] = {
+      //   backgroundColor: "salmon",
+      //   color: "black"
+      // }
       
     }
 
@@ -116,21 +118,19 @@ class App extends Component {
     }
 
     return (
-      <StyleRoot>
-        {/* // Also every tag you want to use would be nested in one div per component */}
-        <div className="App">
-          <h1>I am a react app, haha</h1>
-          <p className= {classes.join(' ')}>this is really working.</p>
-          
-          <button
-            style={style}
-            onClick={this.togglePersonsHandler}
-          >Toggle Persons</button>
-          {persons}
-        </div>
-      </StyleRoot>
+      // Also every tag you want to use would be nested in one div per component 
+      <div className="App">
+        <h1>I am a react app, haha</h1>
+        <p className= {classes.join(' ')}>this is really working.</p>
+        
+        <StyledButton
+          alt = {this.state.showPersons} 
+          onClick={this.togglePersonsHandler}
+        >Toggle Persons</StyledButton>
+        {persons}
+      </div>
     )
   }
 };
 
-export default Radium(App);
+export default App;
