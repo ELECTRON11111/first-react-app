@@ -15,6 +15,11 @@ class App extends Component {
         name: "idana",
         age: 22,
         id: "hdekqhii3i"
+      },
+      {
+        name: "human",
+        age: 19,
+        id: "djkweu238"
       }
     ],
     otherState: "some stuff",
@@ -55,7 +60,8 @@ class App extends Component {
     // Inline styling of elements
     // Restriction is that you can't work on hover and some other pure CSS features
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'White',
       font: "inherit",
       border: "1px solid aquamarine",
       padding: "8px",
@@ -70,6 +76,7 @@ class App extends Component {
     let persons = null;
   
     if (this.state.showPersons) {
+      style.backgroundColor = "red";
       persons =  (
         <div>
           {/* The map method also gives access to the index of each elem in the array  */}
@@ -86,14 +93,23 @@ class App extends Component {
                     />
           })}
         </div>
-      )    
+      )
+      
+    }
+
+    const classes = [];
+    if (this.state.persons.length <= 2){
+      classes.push("red");
+    }
+    if (this.state.persons.length <= 1){
+      classes.push("bold");
     }
 
     return (
       // Also every tag you want to use would be nested in one div per component
       <div className="App">
         <h1>I am a react app, haha</h1>
-        <p>this is really working.</p>
+        <p className= {classes.join(' ')}>this is really working.</p>
         
         <button
           style={style}
