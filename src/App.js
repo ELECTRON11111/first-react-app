@@ -1,25 +1,9 @@
 import React, {Component} from 'react';
 import './App.css';
-import styled from 'styled-components';
 import Person from './Person/Person';
 
 // creating a styled button 
 // we can also add dynamic or conditional styles using ${} since styled componets use template literals
-const StyledButton = styled.button`
-  background-color: ${props => props.alt? "green": "red"};
-  color: White;
-  font: inherit;
-  border: 1px solid aquamarine;
-  padding: 8px;
-  border-radius: 10px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${props => props.alt? "lightgreen": "salmon"};
-    color: black;
-  }
-  
-`;
 // One way to create a component
 class App extends Component {
   state = {
@@ -123,10 +107,10 @@ class App extends Component {
         <h1>I am a react app, haha</h1>
         <p className= {classes.join(' ')}>this is really working.</p>
         
-        <StyledButton
-          alt = {this.state.showPersons} 
+        <button
+          className='button'
           onClick={this.togglePersonsHandler}
-        >Toggle Persons</StyledButton>
+        >Toggle Persons</button>
         {persons}
       </div>
     )
