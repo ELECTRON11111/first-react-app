@@ -18,10 +18,15 @@ const StyledDiv = styled.div`
 `;
 
 const style = {
-    "border-radius": "5px"
+    "borderRadius": "5px"
 }
 
 const person = (props) => {
+    const rnd = Math.random();
+
+    if ( rnd > 0.7 ) { 
+        throw new Error('Something went wrong') 
+    };
 
     // To write dynamic javascript in JSX we use {}
     return (

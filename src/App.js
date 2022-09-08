@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import Person from './Person/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 // creating a styled button 
 // we can also add dynamic or conditional styles using ${} since styled componets use template literals
@@ -31,7 +32,7 @@ class App extends Component {
   nameChangedHandler = (e, id) => {
     // console.log(e, id);
     // Remember to always work with copies of the arrays/objects you use, ensuring state immutability
-    const persons = [...this.state.persons];
+    const persons = [...this.state];
     const Person = persons.find(person => person.id === id );
     Person.name = e.target.value;
     this.setState({
@@ -74,13 +75,17 @@ class App extends Component {
           {/* It compares the DOM with a virtual DOM which shows DOM before re-rendering so for efficiecy sake */}
           {/* It only rerenders where changes were made if its able to identify what changed, so we add a key .. so we add an id to each person and set it as the key */}
           {this.state.persons.map((person, index) => {
-            return <Person 
-                      name = {person.name} 
-                      age = {person.age} 
-                      click = {() => this.deletePersonHandler(index)} 
-                      key = {person.id}
-                      changed = {(e) => this.nameChangedHandler(e, person.id)}
-                    />
+            // The key always has to be on the outer element in the map method
+            // The ErrorBoundary Component is a higher order Component 
+            // Its higher order 'cause it wraps the Person component
+            return <ErrorBoundary key = {person.id}>
+                      <Person 
+                        name = {person.name} 
+                        age = {person.age} 
+                        click = {() => this.deletePersonHandler(index)}
+                        changed = {(e) => this.nameChangedHandler(e, person.id)}
+                      />
+                    </ ErrorBoundary>
           })}
         </div>
       );
